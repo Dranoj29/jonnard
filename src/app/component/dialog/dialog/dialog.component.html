@@ -1,0 +1,26 @@
+<h2 *ngIf="dialogData.role === 'success'" mat-dialog-title class="text-success">
+    {{dialogData.title}}
+    <i class="fa fa-check"></i>
+</h2>
+<h2 *ngIf="dialogData.role === 'error' || dialogData.role === 'failed'" mat-dialog-title class="text-danger">
+    {{dialogData.title}}
+    <i class="fa fa-circle-exclamation"></i>
+</h2>
+<h2 *ngIf="dialogData.role === 'default'" mat-dialog-title class="text-info">
+    {{dialogData.title}}
+    <i class="fa-solid fa-circle-info"></i>
+</h2>
+
+
+<mat-dialog-content>
+    {{dialogData.message}}
+</mat-dialog-content>
+<mat-dialog-actions class="d-flex justify-content-end"> 
+    <button *ngIf="dialogData.cancelButton" class="btn btn-dark mx-1" mat-button mat-dialog-close>Cancel</button>
+    <button *ngIf="dialogData.okayButton" class="btn btn-dark mx-1" mat-button mat-dialog-close>Okay</button>
+    <button *ngIf="dialogData.proceedButton" class="btn btn-dark mx-1" 
+    mat-button mat-dialog-close
+    (click)="onClickProceed()">
+    Proceed
+</button>
+</mat-dialog-actions>

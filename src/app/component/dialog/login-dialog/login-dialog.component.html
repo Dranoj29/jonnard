@@ -1,0 +1,63 @@
+<!-- <h2 mat-dialog-title>Delete all elements?</h2>
+<mat-dialog-content>
+</mat-dialog-content> -->
+<!-- 
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions> -->
+<div class="login-container">
+    <div class="login-wrapper">
+        <div class="row">
+            <div class="col text-center pt-2">
+                <h2 class="">Admin</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="fill" class="w-100 mt-1">
+                    <mat-label>Username</mat-label>
+                    <input matInput placeholder="admin" [formControl]="email">
+                    <mat-icon matPrefix class="my-icon mr-2 mb-2 txt-gold-light">
+                        <i class="fa fa-user fa-xs"></i>
+                    </mat-icon>
+                    <mat-error *ngIf="email.invalid">error</mat-error>
+                </mat-form-field>
+                <div class="example-container">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" [formControl]="email">
+                    <mat-icon matPrefix class="my-icon mr-2 mb-2 txt-gold-light">
+                        <i class="fa fa-key fa-xs"></i>
+                    </mat-icon>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide" class="border-none bg-none txt-gold-light">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <div class="bg-primary-dark rounded" 
+                        matRipple  
+                        [matRippleCentered]="true"
+                        [matRippleColor]="'rgba(255, 217, 0, 0.3)'"
+                        mat-button mat-dialog-close>
+                    <button type="button" class="btn-lg rounded btn-outline-gold w-100"
+                     (click)="onclickLogin()">
+                        Login
+                    </button>
+                </div>
+                <div class="text-secondary text-center">
+                    or
+                </div>
+                <div class="bg-primary-dark rounded" 
+                        matRipple  
+                        [matRippleCentered]="true"
+                        [matRippleColor]="'rgba(255, 217, 0, 0.3)'"
+                        mat-button mat-dialog-close>
+                    <button type="button" class="btn-lg rounded btn-outline-gold w-100"
+                        (click)="onclickGuest()">
+                        Guest
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

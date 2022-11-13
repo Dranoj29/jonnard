@@ -1,0 +1,321 @@
+.col {
+    padding: 0;
+}
+.image-wrap {
+    margin: 0 auto;
+    width: 60%;
+}
+
+
+.image {
+    width: 100%;
+    height: 350px;
+}
+
+
+.name {
+    margin: 3px;
+}
+
+.up{
+    position: fixed;
+    width: 70px;
+    height: 70px;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    background-color: rgba(34, 34, 34, 0.3);
+}
+
+.up i{
+    color: rgb(255, 255, 255)(34, 34, 34, 0.3);
+}
+
+.up:hover{
+    cursor: pointer;
+    background-color: rgba(34, 34, 34, 0.9);
+    color: rgb(255, 255, 255)(34, 34, 34, 0.9);
+}
+
+
+.pages-wrap {}
+
+.page {
+    min-height: 950px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-right, .page-left {
+    background-color: #fff;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 650px;
+    margin-top: 4px!important;
+}
+
+.row{
+    margin-top: 0!important;
+}
+
+.wrapper-active {
+    box-shadow: 0 0 30px #ED1C24 !important;
+    border: 0;
+}
+
+.indicator {
+    width: 40%;
+    height: 2px;
+    background-color: #ED1C24;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 20px auto;
+}
+
+.txt-xs{
+    font-size: 14px !important;
+}
+
+.txt-sm {
+    font-size: 16px !important;
+}
+
+.txt-md {
+    font-size: 18px !important;
+}
+
+.txt-lg {
+    font-size: 20px !important;
+}
+
+.txt-xl {
+    font-size: 22px !important;
+}
+
+.txt-xs, .txt-xs p, .txt-sm p,
+.txt-sm,  .txt-md p,
+.txt-md, .txt-lg p,
+.txt-lg, .txt-xl, .txt-xl p, li a{
+    margin: 0;
+    line-height: normal;
+}
+
+.txt-wrap {
+    padding: 0 55px 0 65px !important;
+    text-align: left;
+}
+
+.txt-wrap-ul {
+    padding: 0 40px 0 20px !important;
+    text-align: left;
+}
+
+.txt-wrap-table {
+    padding: 0 30px !important;
+    text-align: left;
+}
+
+.txt-wrap-table ol,.txt-wrap-table ul{
+    padding-left: 20px !important;
+    margin-bottom: 0px !important;
+}
+
+.txt-weight-bold {
+    font-weight: bold;
+}
+
+.txt-weight-normal {
+    font-weight: normal;
+}
+
+.txt-primary {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.txt-secondary {
+    color: #757575;
+}
+
+.txt-content{
+    color: #11569b;
+}
+
+.txt-content p:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.my-xs{
+    margin: 5px 0 !important;
+}
+
+.my-sm {
+    margin: 10px 0 !important;
+}
+
+.my-md {
+    margin: 20px 0 !important;
+}
+
+.my-lg {
+    margin: 30px 0 !important;
+}
+
+.my-xl {
+    margin: 40px 0 !important;
+}
+
+.page-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    width: 50%;
+    height: 130px;
+    margin: 25px auto 10px auto;
+
+}
+
+.logo-2 {
+    width: 90%;
+    height: 100px;
+    margin: 10px auto 0 auto;
+
+}
+
+.page-body {
+    width: 100%;
+    text-align: center;
+    padding: 5px 5px 65px 5px;
+}
+
+.page-footer{
+    width: 80%;
+    border-bottom: 1px solid #000;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 55px;
+    padding: 5px;
+}
+
+.icon-wrap{
+    width: 100%;
+    position: relative;
+}
+
+.icon{
+    width: 35px;
+    height: 30px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 5px;
+}
+
+ul {
+    list-style: none;
+}
+
+ul .li-check:before {
+    content: '✓ ';
+}
+
+.li-dot{
+    list-style: disc;
+}
+
+.black-line{
+    background-color: #000;
+    width: 100%;
+    height: 2px;
+}
+
+.red-box{
+    width: 100%;
+    padding: 8px !important;
+    background-color: #ED1C24;
+    border: #000 1px solid;
+}
+
+.text-red{
+    color: #ED1C24;
+}
+
+.f-space-between{
+    display: flex;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 968px) {
+
+    .image-wrap {
+        width: 70%;
+    }
+
+    .image {
+        height: 300px;
+    }
+
+    .name {
+        margin: 3px;
+        font-size: 18px;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+
+    .image-wrap {
+        width: 80%;
+    }
+
+    .image {
+        height: 240px;
+    }
+
+}
+
+@media only screen and (max-width: 568px) {
+
+    .image-wrap {
+        width: 95%;
+    }
+
+    .image {
+        height: 200px;
+    }
+
+    .name {
+        margin: 1px;
+        font-size: 16px;
+    }
+
+    .txt-wrap {
+        padding: 0 20px 0 30px !important;
+    }
+
+    .txt-wrap-table {
+        padding: 0 10px !important;
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+
+    .image-wrap {
+        width: 95%;
+    }
+
+}

@@ -1,0 +1,20 @@
+<form  class="row s-body p-1">
+    <div class="col-4 ">
+
+    </div>
+    <div class="col-8">
+        <div class="bg-primary-dark h-100">
+
+        </div>
+    </div>
+</form>
+<div class="d-flex justify-content-end w-100">
+    <button type="button" class="btn btn-dark mx-1" mat-button matStepperPrevious>
+        Back
+    </button>
+    <button type="button" class="btn mx-1"
+        [ngClass]="colorThemeFormGroup.invalid?'btn-secondary disabled':'btn-dark'"
+        [disabled]="colorThemeFormGroup.invalid" mat-button matStepperNext>
+        Next
+    </button>
+</div>

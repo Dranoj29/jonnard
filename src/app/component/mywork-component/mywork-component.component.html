@@ -1,0 +1,174 @@
+<app-header-component *ngIf="!admin" [activeRoute]="activeRoute"></app-header-component>
+
+<section id="mywork">
+    <div class="container py-2">
+        <div *ngIf="admin" class="row">
+            admin
+        </div>
+        <div class="row">
+            <div class="col-sm mt-2">
+                <ngb-carousel class="cursor-pointer" [showNavigationArrows]="false" [showNavigationIndicators]="true" [interval]="1500" [keyboard]="false"
+                    [activeId]="'slideOne'" [pauseOnHover]="false" (mouseenter)="onHover(0)" (mouseleave)="onHoverOut(0)">
+                    <div class="menu front">
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu" xPosition="before">
+                            <button mat-menu-item>
+                                <mat-icon>dialpad</mat-icon>
+                                <span>Redial</span>
+                            </button>
+                            <button mat-menu-item disabled>
+                                <mat-icon>voicemail</mat-icon>
+                                <span>Check voice mail</span>
+                            </button>
+                            <button mat-menu-item>
+                                <mat-icon>notifications_off</mat-icon>
+                                <span>Disable alerts</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                    <ng-template ngbSlide class="back">
+                        <div class="picsum-img-wrapper" id="slideOne">
+                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </ng-template>
+                    <ng-template ngbSlide class="back">
+                        <div class="picsum-img-wrapper" id="slideTwo">
+                            <img class="p-img" src="assets/images/display-img.png" alt="Random first slide">
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </ng-template>
+                    <ng-template ngbSlide class="back">
+                        <div class="picsum-img-wrapper" id="slideThree">
+                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </ng-template>
+                </ngb-carousel>
+                <div class="w-100 bg-white h-100px">
+
+                </div>
+            </div>
+            <div class="col-sm  mt-2">
+                <ngb-carousel class="cursor-pointer" [showNavigationArrows]="false" [showNavigationIndicators]="true" [interval]="1500" [keyboard]="false"
+                    [activeId]="'slideOne'" [pauseOnHover]="false" (mouseenter)="onHover(1)" (mouseleave)="onHoverOut(1)">
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper" id="slideOne">
+                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper" id="slideTwo">
+                            <img class="p-img" src="assets/images/display-img.png" alt="Random first slide">
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper" id="slideThree">
+                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </ng-template>
+                </ngb-carousel>
+                <div class="w-100 bg-white h-100px">
+                
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm  mt-2">
+                <ngb-carousel class="cursor-pointer" [showNavigationArrows]="false" [showNavigationIndicators]="true" [interval]="1500"
+                    [keyboard]="false" [activeId]="'slideOne'" [pauseOnHover]="false" (mouseenter)="onHover(2)" (mouseleave)="onHoverOut(2)">
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper" id="slideOne">
+                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper" id="slideTwo">
+                            <img class="p-img" src="assets/images/display-img.png" alt="Random first slide">
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper" id="slideThree">
+                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </ng-template>
+                </ngb-carousel>
+                <div class="w-100 bg-white h-100px">
+        
+                </div>
+            </div>
+            <div class="col-sm mt-2">
+                <ngb-carousel class="cursor-pointer" [showNavigationArrows]="false" [showNavigationIndicators]="true" [interval]="1500"
+                    [keyboard]="false" [activeId]="'slideOne'" [pauseOnHover]="false" (mouseenter)="onHover(3)" (mouseleave)="onHoverOut(3)">
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper" id="slideOne">
+                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper" id="slideTwo">
+                            <img class="p-img" src="assets/images/display-img.png" alt="Random first slide">
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper" id="slideThree">
+                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
+                        </div>
+                        <div class="carousel-caption">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </ng-template>
+                </ngb-carousel>
+                <div class="w-100 bg-white h-100px">
+        
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer-component></app-footer-component>

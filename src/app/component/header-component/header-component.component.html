@@ -1,0 +1,149 @@
+<section class="position-relative">
+    <nav class="navbar navbar-expand-lg navbar-dark front" [ngClass]="activeRoute==='home'? '':'nav-bg'">
+        <div class="container-fluid" [ngClass]="activeRoute==='home'? '':'bg-transparent-dark'">        
+            <div class="nav-brand">
+                <img class="mr-2" src="assets/images/dummy-brand-logo.png">
+                <h5 class="name txt-gold-light">Jonnard</h5>
+                
+            </div>
+            <div class="collapse navbar-collapse mx-4">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item" [ngClass]="activeRoute === 'home'? 'nav-active font-weight-bold':''" 
+                        matRipple  
+                        [matRippleCentered]="true"
+                        [matRippleColor]="'rgba(255, 217, 0, 0.3)'"
+                        [matRippleUnbounded]="true"
+                        [matRippleRadius]="40">
+                        <a [routerLink]="['/']" class="nav-link">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item" [ngClass]="activeRoute === 'myWork'? 'nav-active font-weight-bold':''" 
+                         matRipple  
+                        [matRippleCentered]="true"
+                        [matRippleColor]="'rgba(255, 217, 0, 0.3)'"
+                        [matRippleUnbounded]="true"
+                        [matRippleRadius]="40">
+                        <a [routerLink]="['/my-work']" class="nav-link">My Work</a>
+                    </li>
+                    <li class="nav-item" [ngClass]="activeRoute === 'cv'? 'nav-active font-weight-bold':''" 
+                        matRipple
+                        [matRippleCentered]="true"
+                        [matRippleColor]="'rgba(255, 217, 0, 0.3)'"
+                        [matRippleUnbounded]="true"
+                        [matRippleRadius]="40">
+                        <a [routerLink]="['/curriculum-vitae']" class="nav-link">Resume</a>
+                    </li>
+                    <li class="nav-item" [ngClass]="activeRoute === 'services'? 'nav-active font-weight-bold':''" matRipple
+                        [matRippleCentered]="true" [matRippleColor]="'rgba(255, 217, 0, 0.3)'" [matRippleUnbounded]="true"
+                        [matRippleRadius]="40">
+                        <a [routerLink]="['/services']" class="nav-link">Services</a>
+                    </li>
+                    <li class="nav-item" [ngClass]="activeRoute === 'about'? 'nav-active font-weight-bold':''" 
+                        matRipple
+                        [matRippleCentered]="true"
+                        [matRippleColor]="'rgba(255, 217, 0, 0.3)'"
+                        [matRippleUnbounded]="true"
+                        [matRippleRadius]="40">
+                        <a [routerLink]="['/about']" class="nav-link">About</a>
+                    </li>       
+                </ul>
+            </div>
+            <form class="d-flex input-group w-auto">
+                <div matRipple  
+                    [matRippleCentered]="true"
+                    [matRippleColor]="'rgba(255, 217, 0, 0.3)'">
+                    <button type="button" class="btn btn-outline-gold" (click)="onClickAdminButton()">Admin</button>
+                </div>
+            </form>
+        </div>
+    </nav>
+    <div class="container-fluid back" [ngClass]="activeRoute==='home'? 'display-img':'display-none'">
+        <div class="bg-transparent-dark w-100 h-100 z-middle display-over">
+            <div class="display-container" >
+                <div class="display-txt">
+                    <!-- <h1 class="txt-font-2 txt-gold txt-gr-shadow-dark animated fadeIn">
+                        Hi, There!
+                    </h1> -->
+                    <h2 class="txt-font-2 txt-opacity-light txt-gr-shadow-dark animated fadeIn">
+                        I'm  <span class="txt-gold txt-lg">JONNARD BAYSA</span>  a  <span class="txt-gold txt-lg">Web Developer</span>
+                    </h2>
+                    <h2 class="txt-font-2 txt-opacity-light txt-gr-shadow-dark animated fadeIn">
+                        and  <span class="txt-gold txt-lg">Web Service API Developer</span>
+                    </h2>
+
+                </div>
+                <div class="display-desc txt-shadow">
+                    <!-- <p class="lead font-weight-bold mt-1">I'm <span
+                            class="txt-gold-light txt-font-1 txt-gr-shadow-dark txt-shadow-none">Jonnard
+                            Baysa</span></p> -->
+                    <p class="text-start txt-opacity-light mt-3 animated fadeIn delay-1s">
+                        A computer programmer, sometimes referred to as a software developer, a software
+                        engineer, or a programmer, is a person
+                        who creates computer programs- often for larger computer software
+                    </p>
+
+                    <div class="mt-4">
+                        <button class="btn-lg btn-outline-gold mx-3 my-1  animated fadeInLeft delay-2s"  
+                            matRipple [matRippleCentered]="true" [matRippleColor]="'rgba(255, 217, 0, 0.3)'"
+                            (click)="navigateTo('/services')"
+                            >
+                            Services
+                        </button>
+                        <button class="btn-lg btn-outline-gold mx-3 my-1 animated fadeInRight delay-2s" 
+                            matRipple [matRippleCentered]="true" [matRippleColor]="'rgba(255, 217, 0, 0.3)'"
+                            (click)="navigateTo('/curriculum-vitae')">
+                            My Resume
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="social-media-wrap center-child front">
+                <ul class="row list social-media p-0">
+                    <li class="col txt-gold-light social-media-item">
+                        <i class="fa-brands fa-facebook fa-2x "
+                            #tooltip="matTooltip"
+                            matTooltip="Facebook"
+                            [matTooltipPosition]="'below'"></i>
+                    </li>
+                    <li class="col txt-gold-light social-media-item">
+                        <i class="fa-brands fa-youtube fa-2x"
+                            #tooltip="matTooltip"
+                            matTooltip="Youtube"
+                            [matTooltipPosition]="'below'"></i>
+                    </li>
+                    <li class="col txt-gold-light social-media-item">
+                        <i class="fa-brands fa-linkedin fa-2x" 
+                            #tooltip="matTooltip"
+                            matTooltip="Linkedin"
+                            [matTooltipPosition]="'below'"></i>
+                    </li>
+                    <li class="col txt-gold-light social-media-item">
+                        <i class="fa-brands fa-instagram fa-2x"
+                            #tooltip="matTooltip"
+                            matTooltip="Instagram"
+                            [matTooltipPosition]="'below'"></i>
+                    </li>
+                    <li class="col txt-gold-light social-media-item">
+                        <i class="fa-brands fa-github fa-2x" 
+                            #tooltip="matTooltip"
+                            matTooltip="Github"
+                            [matTooltipPosition]="'below'"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- SMOKE Animation -->
+        <div class="smoke-wrap z-below-middle" [ngClass]="activeRoute==='home'? '':'display-none'">
+            <img class="smoke" src="/assets/images/steam.png">
+        </div>
+        <div class="smoke-wrap z-below-middle" [ngClass]="activeRoute==='home'? '':'display-none'">
+            <img class="smoke-2" src="/assets/images/steam.png">
+        </div>
+        <!-- <div class="smoke-wrap z-below-middle">
+                        <img class="smoke-3" src="/assets/images/smoke-3.png">
+                    </div> -->
+        <div class="smoke-wrap-sm z-below-middle" [ngClass]="activeRoute==='home'? '':'display-none'">
+            <img class="smoke-sm" src="/assets/images/smoke-3.png">
+        </div>        
+    </div>
+    <div class="h-sm bg-gold" [ngClass]="activeRoute==='home'? '':'display-none'"></div>
+</section>

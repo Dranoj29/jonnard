@@ -1,0 +1,79 @@
+<form [formGroup]="personalInfoFormGroup" class="s-body">
+    <div class="row mt-1">
+        <div class="col-sm-4 px-1">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Firstname</mat-label>
+                <input matInput placeholder="firstname" formControlName="firstname" required>
+                <mat-error *ngIf="personalInfoFormGroup.controls['firstname'].invalid">Firstname is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-4 px-1">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Middlename</mat-label>
+                <input matInput placeholder="middlename" formControlName="middlename">
+                <mat-error *ngIf="personalInfoFormGroup.controls['middlename'].invalid">Middlename is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-4 px-1">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Lastname</mat-label>
+                <input matInput placeholder="lastname" formControlName="lastname" required>
+                <mat-error *ngIf="personalInfoFormGroup.controls['lastname'].invalid">Lastame is required</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 px-1">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Birthdate</mat-label>
+                <input matInput [matDatepicker]="picker" [max]="dateNow" placeholder="MM/dd/yyyy"
+                    formControlName="birthdate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="year"></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-4 px-1">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender" required>
+                    <mat-option [value]="'M'">
+                        Male
+                    </mat-option>
+                    <mat-option [value]="'F'">
+                        Female
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-4 px-1">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-5 px-1">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Mobile No.</mat-label>
+                <input matInput placeholder="mobile" formControlName="mobile" required>
+                <mat-error *ngIf="personalInfoFormGroup.controls['mobile'].invalid">Mobile No. is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-7 px-1">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="email" formControlName="email">
+                <mat-error *ngIf="personalInfoFormGroup.controls['email'].invalid">Email is required</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+</form>
+<div class="d-flex justify-content-end w-100">
+    <button type="button" class="btn btn-dark mx-1" mat-button matStepperPrevious>
+        Back
+    </button>
+    <button type="button" class="btn mx-1"
+        [ngClass]="this.personalInfoFormGroup.invalid?'btn-secondary disabled':'btn-dark'"
+        [disabled]="this.personalInfoFormGroup.invalid" mat-button matStepperNext>
+        Next
+    </button>
+</div>

@@ -1,0 +1,94 @@
+<app-header-component [activeRoute]="activeRoute"></app-header-component>
+
+<section>
+    <div class="container-fluid">
+        <!-- <div class="row mt-3 mx-3 animated fadeIn">
+            <div class="bg-info text-white p-2 w-100 rounded">
+                <h5 class="">Reminder</h5>
+                <p class="">Sample text here...</p>
+            </div>
+        </div>  -->
+        <div class="row m-3 shadow animated fadeIn">
+            <div class="col-3 s-left">
+                <div class="l-wrapper">
+                    <div class="row text-white">
+                        <div class="sv-item text-end" 
+                        [ngClass]="activeService==='web'?'s-active-item':''"
+                        (click)="onclickService('web')">
+                            <i class="fa fa-globe mx-2"></i> Website
+                        </div>
+                    </div>
+                    <div class="row text-white">
+                        <div class="sv-item text-end"
+                        [ngClass]="activeService==='mobile'?'s-active-item':''"
+                        (click)="onclickService('mobile')">
+                            <i class="fa fa-mobile mx-2"></i>  Mobile App
+                        </div>
+                    </div>
+                    <div class="row text-white">
+                        <div class="sv-item text-end"
+                        [ngClass]="activeService==='webservice'?'s-active-item':''"
+                        (click)="onclickService('webservice')">
+                            <i class="fa fa-gears mx-2"></i>  Restful Webservice
+                        </div>
+                    </div>
+                    <div class="row text-white">
+                        <div class="sv-item text-end"
+                        [ngClass]="activeService==='school'?'s-active-item':''"
+                        (click)="onclickService('school')">
+                            <i class="fa fa-book mx-2"></i>  School Activity
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9 s-right">
+                <div *ngIf="activeService==='web'" class="p-3 h-100 w-100 animated fadeIn">
+                    <div class="row">
+                        <div class="border border-info p-2 w-100 rounded">
+                            <p class="text-secondary m-0">Website</p>
+                            <small class="text-muted m-0">Angular base website plus Spring Rest Api and Mysql/Oracle database</small>
+                        </div>
+                        <mat-stepper [linear]="true" #stepper class="w-100 m-1">
+                            <mat-step [completed]="isProjectDetailsFormValid">
+                                <ng-template matStepLabel>Project Details</ng-template>
+                                <app-project-details (projectDetailFormOutput)="onCheckFormOutput($event)"></app-project-details>                                
+                            </mat-step>
+                            <mat-step>
+                                <ng-template matStepLabel>Color and Theme</ng-template>
+                                <app-color-and-theme></app-color-and-theme>
+                            </mat-step>
+                            <mat-step [completed]="isPersonalInfoFormValid">
+                                <ng-template matStepLabel>Personal Information</ng-template>
+                                <app-personal-info (personalInfoFormOutput)="onCheckFormOutput($event)"></app-personal-info>
+                            </mat-step>
+                            <mat-step>
+                                <ng-template matStepLabel>Done</ng-template>
+                                <form  class="s-body">
+
+                                </form>
+                                <div class="d-flex justify-content-end w-100">
+                                    <button type="button" class="btn btn-dark mx-1" mat-button matStepperPrevious>
+                                        Back
+                                    </button>
+                                    <button type="button" class="btn btn-dark mx-1" mat-button matStepperNext>
+                                        Submit
+                                    </button>
+                                </div>
+                            </mat-step>
+                        </mat-stepper>
+                    </div>
+                </div>
+                <div *ngIf="activeService==='mobile'" class="p-3 h-100 w-100 animated fadeIn">
+                    <div class="row">
+                        <div class="border border-info p-2 w-100 rounded">
+                            <p class="text-secondary m-0">Mobile Application</p>
+                            <small class="text-muted m-0">This app will base on android studio plus Spring Rest</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer-component></app-footer-component>

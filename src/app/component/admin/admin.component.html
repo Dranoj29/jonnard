@@ -1,0 +1,68 @@
+<section id="admin">   
+    <mat-drawer-container class="container-fluid p-0" autosize>
+        <mat-drawer #drawer class="sidenav" mode="over" [(opened)]="isDrawerOpen">
+            <div class="w-100">
+                <div class="w-100 my-1 profile-wrapper">
+                    <div class="profile text-center">
+                        <img class="row profile-img my-1" src="assets/images/dummy-brand-logo.png" alt="">
+                        <small class="text-secondary">Guest</small>
+                    </div>
+                </div>
+                <div class="row text-white">
+                    <div class="s-item text-end" [ngClass]="active==='mywork'?'s-active-item':''" (click)="onClickMenu('mywork')">
+                        <i class="fa fa-code mx-3"></i> MyWork
+                    </div>
+                </div>
+                <div class="row text-white">
+                    <div class="s-item text-end" [ngClass]="active==='expertise'?'s-active-item':''"
+                        (click)="onClickMenu('expertise')">
+                        <i class="fa fa-bolt mx-3"></i> Expertise
+                    </div>
+                </div>
+                <div class="row text-white">
+                    <div class="s-item text-end" [ngClass]="active==='resume'?'s-active-item':''" (click)="onClickMenu('resume')">
+                        <i class="fa fa-file mx-3"></i> Resume
+                    </div>
+                </div>
+                <div class="row text-white">
+                    <div class="s-item text-end" [ngClass]="active==='services'?'s-active-item':''"
+                        (click)="onClickMenu('services')">
+                        <i class="fa fa-briefcase mx-3"></i> Services
+                    </div>
+                </div>
+            </div>
+        </mat-drawer>
+    
+        <div class="sidenav-content">
+            <div class="py-2 px-3 d-flex justify-content-between bg-primary-dark">
+                <button type="button" class="btn btn-outline-gold" mat-button (click)="drawer.toggle()"
+                    matRipple [matRippleCentered]="true"
+                    [matRippleColor]="'rgba(255, 217, 0, 0.3)'">
+                    <i class="fa txt-gold-light fa-bars"></i>
+                </button>
+                <button type="button" class="btn btn-outline-gold" matRipple [matRippleCentered]="true"
+                    [matRippleColor]="'rgba(255, 217, 0, 0.3)'"
+                    #tooltip="matTooltip"
+                    matTooltip="Logout"
+                    [matTooltipPosition]="'before'">
+                    <i class="fa fa-right-from-bracket txt-gold-light pl-1"></i>
+                </button>
+            </div>
+            <div class="w-100">
+                <div *ngIf="active==='mywork'">
+                    <app-mywork-component [admin]="true"></app-mywork-component>
+                </div>
+                <div *ngIf="active==='expertise'">
+                    ex
+                </div>
+                <div *ngIf="active==='resume'">
+                    res
+                </div>
+                <div *ngIf="active==='services'">
+                    ser
+                </div>
+            </div>
+        </div>
+    
+    </mat-drawer-container>
+</section>

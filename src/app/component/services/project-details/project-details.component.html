@@ -1,0 +1,84 @@
+<form [formGroup]="projectDetailFormGroup" class="s-body">
+    <div class="w-100 pt-1">
+        <div class="row">
+            <div class="px-1" [ngClass]="projectDetailFormGroup.controls['type'].value==='Other'?'col-sm-3':'col-sm-4'">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Type</mat-label>
+                    <mat-select formControlName="type">
+                        <mat-option *ngFor="let webType of webTypes" [value]="webType" (click)="onClickWebTypeOption(webType)">
+                            {{webType}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="projectDetailFormGroup.controls['type'].invalid">Type is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div *ngIf="projectDetailFormGroup.controls['type'].value ==='Other'" class="col-sm-3 px-1">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Other Type</mat-label>
+                    <input matInput placeholder="value" formControlName="typeValue" required (change)="emitForm()">
+                    <mat-error *ngIf="projectDetailFormGroup.controls['typeValue'].invalid">Other Type value is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="px-1" [ngClass]="projectDetailFormGroup.controls['type'].value==='Other'?'col-sm-6':'col-sm-8'">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Website Name</mat-label>
+                    <input matInput placeholder="Name" formControlName="name" required (change)="emitForm()">
+                    <mat-error *ngIf="projectDetailFormGroup.controls['name'].invalid">Name is required</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <p>Features</p>
+        <div class="row">
+            <div class="col px-1">
+                <mat-form-field class="w-100" appearance="fill">
+                    <mat-label>Must have</mat-label>
+                    <mat-chip-list #mustHave aria-label="Fruit selection">
+                        <mat-chip *ngFor="let feature of mustHaveFeatures" (removed)="removeFeature(feature, 'mustHave')">
+                            {{feature.name}}
+                            <button matChipRemove>
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip>
+                        <input placeholder="add feature" [matChipInputFor]="mustHave"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+                            (matChipInputTokenEnd)="addFeature($event, 'mustHave')">
+                    </mat-chip-list>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col px-1">
+                <mat-form-field class="w-100" appearance="fill">
+                    <mat-label>Nice to have</mat-label>
+                    <mat-chip-list #niceToHave aria-label="feature selection">
+                        <mat-chip *ngFor="let feature of niceToHaveFeatures" (removed)="removeFeature(feature, 'niceToHave')">
+                            {{feature.name}}
+                            <button matChipRemove>
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip>
+                        <input placeholder="add feature" [matChipInputFor]="niceToHave"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+                            (matChipInputTokenEnd)="addFeature($event, 'niceToHave')">
+                    </mat-chip-list>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col px-1">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Add Message</mat-label>
+                    <textarea rows="3" matInput formControlName="message"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="d-flex justify-content-end w-100">
+    <button type="button" class="btn mx-1"
+        [ngClass]="this.projectDetailFormGroup.invalid?'btn-secondary disabled':'btn-dark'"
+        [disabled]="this.projectDetailFormGroup.invalid" mat-button matStepperNext>
+        Next
+    </button>
+</div>

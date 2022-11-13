@@ -1,0 +1,36 @@
+.r-img{
+    /*background-image: url('/assets/images/resume.jpg');*/
+    height: 800px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: initial;
+    background-size: 100% 100%;
+}
+
+.btn-download{
+    position: absolute;
+    top: 8px;
+    right: 15px;
+}
+
+.icon{
+    display: flex;
+    padding: 0 5px;
+    align-items: center;
+}
+
+.text{
+    white-space: nowrap;
+    padding-right: 15px;
+    padding-left: 10px;
+}
+
+.boder-bottom-dark{
+    border-bottom: #222222 solid 1px;
+    padding-bottom: 10px;
+}
+
+.mat-icon-wrapper{
+    margin-top: 2px;
+    padding-bottom: 1.34375em;
+}

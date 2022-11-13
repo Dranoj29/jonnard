@@ -1,0 +1,82 @@
+<app-header-component [activeRoute]="activeRoute"></app-header-component>
+
+<section>
+    <div class="container animated fadeIn">
+        <div class="mb-3 mt-5">
+            <h5 class="text-secondary">My Resume <span class="txt-size-sm ml-2">last update {{resume.date | date}}</span></h5>
+        </div>
+        <div class="shadow rounded">
+            <div class="row m-0">
+                <div class="col-lg-8 p-0 r-img"  [ngStyle]="{'background-image':'url(' + resume.imagePath + ')'}">
+                    <button type="button" class="btn btn-outline-gold mt-2 btn-expand btn-download"
+                    matRipple  
+                    [matRippleCentered]="true"
+                    [matRippleColor]="'rgba(255, 217, 0, 0.3)'"
+                    (click)="download()">
+                        <span class="icon text-white">
+                            <i class="fa fa-download"></i>
+                        </span> 
+                        <span class="text">Download as PDF</span>
+                    </button>
+                </div>
+                <div class="col-lg-4 p-2">
+                    <div class="m-2">
+                        <div class="p-2 mt-3 text-center">
+                            <h3>Send Email</h3>
+                        </div>
+                        <mat-form-field appearance="fill" class="w-100 mt-1">
+                            <mat-label>Enter your email</mat-label>
+                            <input matInput placeholder="pat@example.com" [formControl]="email" required>
+                            <mat-error *ngIf="email.invalid">error</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-100 mt-1">
+                            <mat-label>Enter Subject</mat-label>
+                            <input matInput placeholder="pat@example.com" [formControl]="subject">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-100 mt-1">
+                            <mat-label>Enter Body</mat-label>
+                            <textarea rows="5" matInput [formControl]="body"></textarea>
+                        </mat-form-field>
+                        
+                        <div class="row w-100 m-0">
+                            <div class="col-2 p-0">
+                                <div class="mat-icon-wrapper w-100 h-100">
+                                    <div class="bg-primary-dark rounded w-100 h-100">
+                                        <button type="button" class="btn-lg btn-outline-gold w-100 h-100 m-0" matRipple [matRippleCentered]="true"
+                                            [matRippleColor]="'rgba(255, 217, 0, 0.3)'">
+                                            <i class="fa fa-paperclip txt-gold-light mr-2"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-10 p-0">
+                                <mat-form-field appearance="fill" class="w-100 mt-1">
+                                    <mat-label>Attach Files</mat-label>
+                                    <input matInput placeholder="no files" [formControl]="subject">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="bg-primary-dark rounded">
+                            <button type="button" class="btn-lg btn-outline-gold w-100" 
+                            matRipple  
+                            [matRippleCentered]="true"
+                            [matRippleColor]="'rgba(255, 217, 0, 0.3)'">
+                                <i class="fa fa-paper-plane txt-gold-light mr-2"></i>
+                                Send
+                            </button>
+                        </div>
+                        <div class="mt-3 text-secondary text-justify">
+                            <h5 class="text-info">Email Reminder <i class="fa-solid fa-circle-info"></i></h5>
+                            <p>
+                                Email sending will use your email address as a sender 
+                                and it will never share to anyone else, or you can email me in this address <span class="text-info">baysajonnard@gmail.com</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer-component></app-footer-component>
