@@ -13,6 +13,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +28,7 @@ import { SwiperModule } from "swiper/angular";
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInterceptor } from './sevices/http/AppInterceptor';
+import { LimitPipe } from './pipe/limit-pipe';
 
 import { HeaderComponentComponent } from './component/header-component/header-component.component';
 import { FooterComponentComponent } from './component/footer-component/footer-component.component';
@@ -39,6 +44,10 @@ import { ProjectDetailsComponent } from './component/services/project-details/pr
 import { PersonalInfoComponent } from './component/services/personal-info/personal-info.component';
 import { ColorAndThemeComponent } from './component/services/color-and-theme/color-and-theme.component';
 import { AdminComponent } from './component/admin/admin.component';
+import { ExpertiseComponent } from './component/expertise/expertise.component';
+import { DashboardComponent } from './component/admin/dashboard/dashboard.component';
+
+import { FocusDirective } from './util/focus.directive';
 
 @NgModule({
   declarations: [
@@ -56,7 +65,10 @@ import { AdminComponent } from './component/admin/admin.component';
     PersonalInfoComponent,
     ColorAndThemeComponent,
     AdminComponent,
-    
+    ExpertiseComponent,
+    DashboardComponent,
+    FocusDirective,
+    LimitPipe
   ],
   imports: [
     BrowserModule,
@@ -79,7 +91,11 @@ import { AdminComponent } from './component/admin/admin.component';
     MatNativeDateModule,
     MatSidenavModule,
     MatMenuModule,
-    HttpClientModule
+    HttpClientModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatBadgeModule,
+    MatButtonModule
   ],
   providers: [
     {

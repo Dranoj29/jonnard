@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren, ViewEncapsulation} from '@angular/core';
 
 import { SwiperComponent } from "swiper/angular";
 
 // import Swiper core and required modules
-import SwiperCore, { Pagination, Navigation } from "swiper";
+import SwiperCore, { Pagination, Navigation, Swiper } from "swiper";
+import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 
 
 SwiperCore.use([Pagination, Navigation]);
@@ -15,16 +16,23 @@ SwiperCore.use([Pagination, Navigation]);
   styleUrls: ['./home-component.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class HomeComponentComponent implements OnInit {
+export class HomeComponentComponent implements OnInit, AfterViewInit {
 
   activeRoute = 'home';
 
-  @ViewChild('swiper', { static: false }) swiper: any;
+  @ViewChild(SwiperComponent, { static: false }) swiper!: SwiperComponent;
+  //@ViewChild('carousel', { static: false }) car!: NgbCarousel;
+
+  //@ViewChildren('carousel')  carouselList!: QueryList<NgbCarousel>;
 
   constructor() { }
 
   ngOnInit(): void {
     
+  }
+
+  ngAfterViewInit(): void {
+   
   }
 
   slideNext(){

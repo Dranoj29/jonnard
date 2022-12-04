@@ -1,23 +1,17 @@
-.r-img{
-    /*background-image: url('/assets/images/resume.jpg');*/
+.resume-img{
     height: 800px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: initial;
-    background-size: 100% 100%;
 }
 
-.btn-download{
+.resume-img-admin{
+    height: 700px;
+}
+
+.btn-action{
     position: absolute;
     top: 8px;
     right: 15px;
 }
 
-.icon{
-    display: flex;
-    padding: 0 5px;
-    align-items: center;
-}
 
 .text{
     white-space: nowrap;
@@ -25,12 +19,12 @@
     padding-left: 10px;
 }
 
-.boder-bottom-dark{
-    border-bottom: #222222 solid 1px;
-    padding-bottom: 10px;
-}
+@media only screen and (max-width: 768px) {
+    .resume-img {
+        height: 600px;
+    }
 
-.mat-icon-wrapper{
-    margin-top: 2px;
-    padding-bottom: 1.34375em;
+    .resume-img-admin {
+        height: 600px;
+    }
 }

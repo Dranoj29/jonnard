@@ -1,82 +1,107 @@
-<app-header-component [activeRoute]="activeRoute"></app-header-component>
+<app-header-component *ngIf="!admin" [activeRoute]="activeRoute"></app-header-component>
 
 <section>
-    <div class="container animated fadeIn">
-        <div class="mb-3 mt-5">
+    <div *ngIf="action=='noaction'" class="container animated fadeIn">
+        <div class="mb-3 mt-4">
             <h5 class="text-secondary">My Resume <span class="txt-size-sm ml-2">last update {{resume.date | date}}</span></h5>
         </div>
-        <div class="shadow rounded">
+        <div class="rounded">
             <div class="row m-0">
-                <div class="col-lg-8 p-0 r-img"  [ngStyle]="{'background-image':'url(' + resume.imagePath + ')'}">
-                    <button type="button" class="btn btn-outline-gold mt-2 btn-expand btn-download"
+                <div class="col-lg-7 p-0 px-1 mb-2">
+                    <button *ngIf="!admin" type="button" class="btn btn-outline-gold mt-2 btn-expand btn-action"
                     matRipple  
                     [matRippleCentered]="true"
                     [matRippleColor]="'rgba(255, 217, 0, 0.3)'"
                     (click)="download()">
-                        <span class="icon text-white">
+                        <span class="text-white d-flex pl-1 pr-2">
                             <i class="fa fa-download"></i>
                         </span> 
                         <span class="text">Download as PDF</span>
                     </button>
+                    <button *ngIf="admin" type="button" class="btn btn-outline-gold mt-2 btn-expand btn-action" matRipple
+                        [matRippleCentered]="true" [matRippleColor]="'rgba(255, 217, 0, 0.3)'" 
+                        (click)="toggleAction('upload')">
+                        <span class="text-white d-flex pl-1 pr-2">
+                            <i class="fa fa-upload"></i>
+                        </span>
+                        <span class="text">Upload</span>
+                    </button>
+                    <img [src]="resume.imagePath || 'assets/images/resume.jpg'" alt="" class="w-100 shadow" [ngClass]="admin?'resume-img-admin':'resume-img'">
                 </div>
-                <div class="col-lg-4 p-2">
-                    <div class="m-2">
-                        <div class="p-2 mt-3 text-center">
-                            <h3>Send Email</h3>
-                        </div>
-                        <mat-form-field appearance="fill" class="w-100 mt-1">
-                            <mat-label>Enter your email</mat-label>
-                            <input matInput placeholder="pat@example.com" [formControl]="email" required>
-                            <mat-error *ngIf="email.invalid">error</mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="fill" class="w-100 mt-1">
-                            <mat-label>Enter Subject</mat-label>
-                            <input matInput placeholder="pat@example.com" [formControl]="subject">
-                        </mat-form-field>
-                        <mat-form-field appearance="fill" class="w-100 mt-1">
-                            <mat-label>Enter Body</mat-label>
-                            <textarea rows="5" matInput [formControl]="body"></textarea>
-                        </mat-form-field>
-                        
-                        <div class="row w-100 m-0">
-                            <div class="col-2 p-0">
-                                <div class="mat-icon-wrapper w-100 h-100">
-                                    <div class="bg-primary-dark rounded w-100 h-100">
-                                        <button type="button" class="btn-lg btn-outline-gold w-100 h-100 m-0" matRipple [matRippleCentered]="true"
-                                            [matRippleColor]="'rgba(255, 217, 0, 0.3)'">
-                                            <i class="fa fa-paperclip txt-gold-light mr-2"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-10 p-0">
-                                <mat-form-field appearance="fill" class="w-100 mt-1">
-                                    <mat-label>Attach Files</mat-label>
-                                    <input matInput placeholder="no files" [formControl]="subject">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="bg-primary-dark rounded">
-                            <button type="button" class="btn-lg btn-outline-gold w-100" 
-                            matRipple  
-                            [matRippleCentered]="true"
-                            [matRippleColor]="'rgba(255, 217, 0, 0.3)'">
-                                <i class="fa fa-paper-plane txt-gold-light mr-2"></i>
-                                Send
-                            </button>
-                        </div>
-                        <div class="mt-3 text-secondary text-justify">
-                            <h5 class="text-info">Email Reminder <i class="fa-solid fa-circle-info"></i></h5>
-                            <p>
-                                Email sending will use your email address as a sender 
-                                and it will never share to anyone else, or you can email me in this address <span class="text-info">baysajonnard@gmail.com</span>
-                            </p>
-                        </div>
+                <div class="col-lg-5 px-1 mb-2">                        
+                    <div class="p-3 shadow bg-white rounded text-justify">
+                        <small class="text-secondary">Nulla vitae elit libero, a pharetra augue Nulla vitae elit libero, a pharetra augue Nulla vitae elit libero, a pharetra
+                        augue mollis interdum. Nulla vitae elit libero, a pharetra augue mollis interdum.</small>
                     </div>
+                    
                 </div>
             </div>
         </div>
     </div>
+    <!--Upload Action-->
+    <div *ngIf="action=='upload'" class="shadow m-2 p-2">
+        <div class="center-child justify-content-between align-items-center">
+            <div class="center-child pl-3">
+                <i class="fa fa-upload"></i>
+                <h5 class="m-0 p-2">Upload New Resume</h5>
+                <small *ngIf="!mobileView" class="text-danger ml-2">{{invalidFileMessage}}</small>
+            </div>
+            <div>
+                <span class="icon icon-light" #tooltip="matTooltip" matTooltip="Cancel" [matTooltipPosition]="'before'" [matTooltipShowDelay]="1000"
+                    (click)="toggleAction('noaction')">
+                    <i class="fa fa-xmark px-1"></i>
+                </span>
+            </div>
+        </div>
+        <small *ngIf="mobileView" class="text-danger ml-2">{{invalidFileMessage}}</small>
+        <div class="center-child">
+            <input #fileInputImage type="file" (change)="onSelectImage($event)" style="display: none;" accept="image/*" />
+            <input #fileInputPdf type="file" (change)="onSelectPdf($event)" style="display: none;"/>
+            <div class="container mt-2">
+                <div class="row my-1">
+                    <div class="col-sm-5 center-child">
+                        <button type="button" class="btn btn-dark" 
+                            matRipple style="width: 300px; margin-bottom: 10px;"
+                            (click)="fileInputPdf.click()">
+                            <i class="fa fa-file mr-2"></i>
+                            Select PDF
+                        </button>
+                    </div>
+                    <div class="col-sm-7" style="font-size: 15px;">
+                        <mat-form-field appearance="fill"  class="w-100">
+                            <mat-label>PDF</mat-label>
+                            <input matInput [value]="pdfFile!=null? pdfFile.name:'no file selected'" disabled>
+                            <i *ngIf="pdfFile != null" matSuffix class="fa fa-check text-success"></i>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row my-1">
+                    <div class="col-sm-5 center-child">
+                        <button type="button" class="btn btn-dark" 
+                            matRipple style="width: 300px; margin-bottom: 10px;"
+                            (click)="fileInputImage.click()">
+                            <i class="fa fa-file mr-2"></i>
+                            Select Image
+                        </button>
+                    </div>
+                    <div class="col-sm-7" style="font-size: 15px;">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Image</mat-label>
+                            <input matInput [value]="imageFile!=null? imageFile.name:'no file selected'" disabled>
+                            <i *ngIf="imageFile != null" matSuffix class="fa fa-check text-success"></i>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end w-100 mt-3">
+            <button type="button" class="btn mx-1"
+                [ngClass]="imageFile == null || pdfFile == null?'btn-secondary disabled':'btn-dark'"
+                [disabled]="imageFile == null || pdfFile == null">
+                <i class="fa fa-save mr-1"></i> Upload
+            </button>
+        </div>
+    </div>
 </section>
 
-<app-footer-component></app-footer-component>
+<app-footer-component *ngIf="!admin"></app-footer-component>

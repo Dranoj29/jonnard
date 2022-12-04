@@ -1,0 +1,274 @@
+<section>
+    <div class="item-container hide-on-init p-1" animateOnScroll animationName="animated visible fadeIn">
+        <div *ngIf="admin" class="fab-wrapper">
+            <button *ngIf="action=='noaction'" mat-fab color="dark" 
+                #tooltip="matTooltip" matTooltip="Add" [matTooltipPosition]="'before'" [matTooltipShowDelay]="1000"
+                (click)="toggleAction('add')">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <div class="container-fluid" *ngIf="action=='noaction'">
+            <div class="row w-100 mx-0" *ngFor="let row of expertise">
+                <div class="col-md-6 p-0" *ngFor="let col of row">
+                    <div class="row w-100 m-0">
+                        <div class="col-6 ex-item mt-2" *ngFor="let item of col; let item_index=index">
+                            <div *ngIf="!item.add" class="menu-wrapper front">
+                                <button *ngIf="admin" class="btn-menu center-child rounded" mat-icon-button [matMenuTriggerFor]="menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu" xPosition="before">
+                                    <button mat-menu-item (click)="toggleAction('edit', item)">
+                                        <mat-icon>edit</mat-icon>
+                                        <span>Update</span>
+                                    </button>
+                                    <button mat-menu-item (click)="onDelete(item)">
+                                        <mat-icon>delete_forever</mat-icon>
+                                        <span>Delete</span>
+                                    </button>
+                                </mat-menu>
+                            </div>
+                            <div *ngIf="!item.add" class="shadow rounded h-100 w-100 m-1 text-center p-4 bg-white">
+                                <img class="ex-logo" [src]="item.imageSrc" alt="{{item.imageSrc}}">
+                                <h5 class="mt-3">{{item.name}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Add-->
+        <div *ngIf="action=='add'" class="container-fluid p-2 shadow">
+            <div class="center-child justify-content-between align-items-center">
+                <div class="center-child pl-3">
+                    <i class="fa fa-images"></i>
+                    <h5 class="m-0 p-2">Add Expertise</h5>
+                    <small *ngIf="!mobileView" class="text-danger ml-2">{{invalidFileMessage}}</small>
+                </div>
+                <div>
+                    <span class="icon icon-light" #tooltip="matTooltip" matTooltip="Cancel" [matTooltipPosition]="'before'"
+                        [matTooltipShowDelay]="1000" (click)="toggleAction('noaction')">
+                        <i class="fa fa-xmark px-1"></i>
+                    </span>
+                </div>
+            </div>
+            <small *ngIf="mobileView" class="row text-danger ml-2">{{invalidFileMessage}}</small>
+            <div class="center-child">
+                <div [ngStyle]="{'width' : mobileView ? '100%':'75%'}">
+                    <input #fileInput type="file" multiple (change)="onSelectFiles($event)" style="display: none;" accept="image/*">
+                    <div class="row">
+                        <div class="col-4 p-1">
+                            <div *ngIf="addExpertiseList.length >= 1" class="border p-1 rounded">
+                                <span class="icon-sm icon-danger front remove-icon" #tooltip="matTooltip" matTooltip="remove"
+                                    [matTooltipShowDelay]="1000" (click)="addExpertiseList.splice(0, 1)">
+                                    <i class="fa fa-xmark"></i>
+                                </span>
+                                <div style="font-size: 12px;">
+                                    <img class="back cursor-pointer" style="height: 125px; width: 100%;"
+                                        [src]="addExpertiseList[0].imageSrc" alt=""
+                                        onerror="this.src = 'assets/images/img-ph.jpg';" #tooltip="matTooltip"
+                                        matTooltip="select file">
+                                    <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput placeholder="Enter Name" [value]="addExpertiseList[0].name" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button type="button" *ngIf="addExpertiseList.length == 0"
+                                class="add-wrapper center-child rounded border text-secondary" matRipple
+                                (click)="fileInput.click()">
+                                <div>
+                                    <div>
+                                        <i class="fa fa-add fa-2x"></i>
+                                    </div>
+                                    <small>Select File</small>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col-4 p-1">
+                            <div *ngIf="addExpertiseList.length >= 2" class="border p-1 rounded">
+                                <span class="icon-sm icon-danger front remove-icon" #tooltip="matTooltip" matTooltip="remove"
+                                    [matTooltipShowDelay]="1000" (click)="addExpertiseList.splice(1, 1)">
+                                    <i class="fa fa-xmark"></i>
+                                </span>
+                                <div style="font-size: 12px;">
+                                    <img class="back cursor-pointer" style="height: 125px; width: 100%;"
+                                        [src]="addExpertiseList[1].imageSrc" alt="" onerror="this.src = 'assets/images/img-ph.jpg';"
+                                        #tooltip="matTooltip" matTooltip="select file">
+                                    <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput placeholder="Enter name" [value]="addExpertiseList[1].name" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button type="button" *ngIf="addExpertiseList.length == 1"
+                                class="add-wrapper center-child rounded border text-secondary" matRipple (click)="fileInput.click()">
+                                <div>
+                                    <div>
+                                        <i class="fa fa-add fa-2x"></i>
+                                    </div>
+                                    <small>Select File</small>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col-4 p-1">
+                            <div *ngIf="addExpertiseList.length >= 3" class="border p-1 rounded">
+                                <span class="icon-sm icon-danger front remove-icon" #tooltip="matTooltip" matTooltip="remove"
+                                    [matTooltipShowDelay]="1000" (click)="addExpertiseList.splice(2, 1)">
+                                    <i class="fa fa-xmark"></i>
+                                </span>
+                                <div style="font-size: 12px;">
+                                    <img class="back cursor-pointer" style="height: 125px; width: 100%;"
+                                        [src]="addExpertiseList[2].imageSrc" alt="" onerror="this.src = 'assets/images/img-ph.jpg';"
+                                        #tooltip="matTooltip" matTooltip="select file">
+                                    <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput placeholder="Enter name" [value]="addExpertiseList[2].name" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button type="button" *ngIf="addExpertiseList.length == 2"
+                                class="add-wrapper center-child rounded border text-secondary" matRipple (click)="fileInput.click()">
+                                <div>
+                                    <div>
+                                        <i class="fa fa-add fa-2x"></i>
+                                    </div>
+                                    <small>Select File</small>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 p-1">
+                            <div *ngIf="addExpertiseList.length >= 4" class="border p-1 rounded">
+                                <span class="icon-sm icon-danger front remove-icon" #tooltip="matTooltip" matTooltip="remove"
+                                    [matTooltipShowDelay]="1000" (click)="addExpertiseList.splice(3, 1)">
+                                    <i class="fa fa-xmark"></i>
+                                </span>
+                                <div style="font-size: 12px;">
+                                    <img class="back cursor-pointer" style="height: 125px; width: 100%;"
+                                        [src]="addExpertiseList[3].imageSrc" alt="" onerror="this.src = 'assets/images/img-ph.jpg';"
+                                        #tooltip="matTooltip" matTooltip="select file">
+                                    <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput placeholder="Enter name" [value]="addExpertiseList[3].name" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button type="button" *ngIf="addExpertiseList.length == 3"
+                                class="add-wrapper center-child rounded border text-secondary" matRipple (click)="fileInput.click()">
+                                <div>
+                                    <div>
+                                        <i class="fa fa-add fa-2x"></i>
+                                    </div>
+                                    <small>Select File</small>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col-4 p-1">
+                            <div *ngIf="addExpertiseList.length >= 5" class="border p-1 rounded">
+                                <span class="icon-sm icon-danger front remove-icon" #tooltip="matTooltip" matTooltip="remove"
+                                    [matTooltipShowDelay]="1000" (click)="addExpertiseList.splice(4, 1)">
+                                    <i class="fa fa-xmark"></i>
+                                </span>
+                                <div style="font-size: 12px;">
+                                    <img class="back cursor-pointer" style="height: 125px; width: 100%;"
+                                        [src]="addExpertiseList[4].imageSrc" alt="" onerror="this.src = 'assets/images/img-ph.jpg';"
+                                        #tooltip="matTooltip" matTooltip="select file">
+                                    <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput placeholder="Enter name" [value]="addExpertiseList[4].name" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button type="button" *ngIf="addExpertiseList.length == 4"
+                                class="add-wrapper center-child rounded border text-secondary" matRipple (click)="fileInput.click()">
+                                <div>
+                                    <div>
+                                        <i class="fa fa-add fa-2x"></i>
+                                    </div>
+                                    <small>Select File</small>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col-4 p-1">
+                            <div *ngIf="addExpertiseList.length >= 6" class="border p-1 rounded">
+                                <span class="icon-sm icon-danger front remove-icon" #tooltip="matTooltip" matTooltip="remove"
+                                    [matTooltipShowDelay]="1000" (click)="addExpertiseList.splice(5, 1)">
+                                    <i class="fa fa-xmark"></i>
+                                </span>
+                                <div style="font-size: 12px;">
+                                    <img class="back cursor-pointer" style="height: 125px; width: 100%;"
+                                        [src]="addExpertiseList[5].imageSrc" alt="" onerror="this.src = 'assets/images/img-ph.jpg';"
+                                        #tooltip="matTooltip" matTooltip="select file">
+                                    <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput placeholder="Enter name" [value]="addExpertiseList[5].name" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button type="button" *ngIf="addExpertiseList.length == 5"
+                                class="add-wrapper center-child rounded border text-secondary" matRipple (click)="fileInput.click()">
+                                <div>
+                                    <div>
+                                        <i class="fa fa-add fa-2x"></i>
+                                    </div>
+                                    <small>Select File</small>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end w-100 mt-3">
+                <button type="button" class="btn mx-1"
+                    [ngClass]="addExpertiseList.length==0 || !isaddExpertiseListValid()?'btn-secondary disabled':'btn-dark'"
+                    [disabled]="addExpertiseList.length==0 || !isaddExpertiseListValid()">
+                    <i class="fa fa-save mr-1"></i> Save
+                </button>
+            </div>
+        </div>
+        <!--Update-->
+        <div *ngIf="action=='edit'" class="shadow p-2">
+            <div class="center-child justify-content-between align-items-center">
+                <div class="center-child pl-3">
+                    <i class="fa fa-pen"></i>
+                    <h5 class="m-0 p-2">Update Expertise</h5>
+                    <small *ngIf="!mobileView" class="text-danger ml-2">{{invalidFileMessage}}</small>
+                </div>
+                <div>
+                    <span class="icon icon-light" #tooltip="matTooltip" matTooltip="Cancel" [matTooltipPosition]="'before'" [matTooltipShowDelay]="1000"
+                        (click)="toggleAction('noaction')">
+                        <i class="fa fa-xmark px-1"></i>
+                    </span>
+                </div>
+            </div>
+            <small *ngIf="mobileView" class="text-danger ml-2">{{invalidFileMessage}}</small>
+            <form class="center-child">
+                <input #fileInput type="file" (change)="onSelectFile($event)" style="display: none;" accept="image/*" />
+                <div style="width: 230px;" class="border p-1 rounded position-relative">
+                    <span class="icon-sm icon-dark front remove-icon" #tooltip="matTooltip" matTooltip="select file"
+                        [matTooltipShowDelay]="1000" (click)="fileInput.click()">
+                        <i class="fa fa-file-import fa-sm"></i>
+                    </span>
+                    <div style="font-size: 12px;">
+                        <img class="back cursor-pointer" style="height: 125px; width: 100%;" [src]="selectedExpertise.imageSrc"
+                            alt="" onerror="this.src = 'assets/images/img-ph.jpg';" #tooltip="matTooltip" matTooltip="select file"
+                            (click)="fileInput.click()">
+                        <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="add label" [value]="selectedExpertise.name"
+                            (change)="onChangeExpertiseName($event)">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <div class="d-flex justify-content-end w-100 mt-3">
+                <button type="button" class="btn mx-1"
+                    [ngClass]="selectedExpertise.name==''?'btn-secondary disabled':'btn-dark'"
+                    [disabled]="selectedExpertise.name == ''">
+                    <i class="fa fa-save mr-1"></i> Save
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

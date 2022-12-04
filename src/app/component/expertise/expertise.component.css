@@ -1,0 +1,25 @@
+.ex-item {
+    min-height: 150px;
+    padding: 0px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ex-logo {
+    height: 80px;
+    width: 80px;
+}
+
+
+.add-wrapper,
+.no-image {
+    height: 200px;
+    width: 100%;
+    background-color: rgba(226, 227, 228, 0.4);
+}
+
+.add-wrapper:hover {
+    cursor: pointer;
+    background-color: rgba(226, 227, 228, 0.8)
+}

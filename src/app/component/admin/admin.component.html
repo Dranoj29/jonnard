@@ -1,6 +1,6 @@
 <section id="admin">   
     <mat-drawer-container class="container-fluid p-0" autosize>
-        <mat-drawer #drawer class="sidenav" mode="over" [(opened)]="isDrawerOpen">
+        <mat-drawer #drawer class="sidenav shadow" [mode]="mode.value" [(opened)]="isDrawerOpen">
             <div class="w-100">
                 <div class="w-100 my-1 profile-wrapper">
                     <div class="profile text-center">
@@ -8,26 +8,25 @@
                         <small class="text-secondary">Guest</small>
                     </div>
                 </div>
-                <div class="row text-white">
-                    <div class="s-item text-end" [ngClass]="active==='mywork'?'s-active-item':''" (click)="onClickMenu('mywork')">
+                <div class="text-white">
+                    <div class="s-item text-end" [ngClass]="active==='Dashboard'?'s-active-item':''" (click)="onClickMenu('Dashboard')">
+                        <i class="fa fa-dashboard mx-3"></i> Dashboard
+                    </div>
+                </div>
+                <div class="text-white">
+                    <div class="s-item text-end" [ngClass]="active==='Mywork'?'s-active-item':''" (click)="onClickMenu('Mywork')">
                         <i class="fa fa-code mx-3"></i> MyWork
                     </div>
                 </div>
-                <div class="row text-white">
-                    <div class="s-item text-end" [ngClass]="active==='expertise'?'s-active-item':''"
-                        (click)="onClickMenu('expertise')">
+                <div class="text-white">
+                    <div class="s-item text-end" [ngClass]="active==='Expertise'?'s-active-item':''"
+                        (click)="onClickMenu('Expertise')">
                         <i class="fa fa-bolt mx-3"></i> Expertise
                     </div>
                 </div>
-                <div class="row text-white">
-                    <div class="s-item text-end" [ngClass]="active==='resume'?'s-active-item':''" (click)="onClickMenu('resume')">
+                <div class="text-white">
+                    <div class="s-item text-end" [ngClass]="active==='Resume'?'s-active-item':''" (click)="onClickMenu('Resume')">
                         <i class="fa fa-file mx-3"></i> Resume
-                    </div>
-                </div>
-                <div class="row text-white">
-                    <div class="s-item text-end" [ngClass]="active==='services'?'s-active-item':''"
-                        (click)="onClickMenu('services')">
-                        <i class="fa fa-briefcase mx-3"></i> Services
                     </div>
                 </div>
             </div>
@@ -35,31 +34,38 @@
     
         <div class="sidenav-content">
             <div class="py-2 px-3 d-flex justify-content-between bg-primary-dark">
-                <button type="button" class="btn btn-outline-gold" mat-button (click)="drawer.toggle()"
-                    matRipple [matRippleCentered]="true"
-                    [matRippleColor]="'rgba(255, 217, 0, 0.3)'">
-                    <i class="fa txt-gold-light fa-bars"></i>
-                </button>
-                <button type="button" class="btn btn-outline-gold" matRipple [matRippleCentered]="true"
-                    [matRippleColor]="'rgba(255, 217, 0, 0.3)'"
+                <div class="d-flex">
+                    <button *ngIf="mobileView" type="button" class="btn btn-outline-gold" mat-button (click)="drawer.toggle()"
+                        matRipple [matRippleCentered]="true"
+                        [matRippleColor]="'rgba(255, 217, 0, 0.3)'">
+                        <i class="fa txt-gold-light fa-bars"></i>
+                    </button>
+                    <div class="h-100 d-flex mx-2">
+                        <h4 class="txt-gold-light my-auto">{{active}}</h4>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline-gold"
                     #tooltip="matTooltip"
                     matTooltip="Logout"
-                    [matTooltipPosition]="'before'">
+                    [matTooltipPosition]="'before'"
+                    [matTooltipClass]="'mat-tooltip-before'"
+                     matRipple [matRippleCentered]="true"
+                    [matRippleColor]="'rgba(255, 217, 0, 0.3)'">
                     <i class="fa fa-right-from-bracket txt-gold-light pl-1"></i>
                 </button>
             </div>
             <div class="w-100">
-                <div *ngIf="active==='mywork'">
-                    <app-mywork-component [admin]="true"></app-mywork-component>
+                <div *ngIf="active==='Dashboard'">
+                   <app-dashboard [mobileView]="mobileView"></app-dashboard>
                 </div>
-                <div *ngIf="active==='expertise'">
-                    ex
+                <div *ngIf="active==='Mywork'">
+                    <app-mywork-component [admin]="true" [mobileView]="mobileView"></app-mywork-component>
                 </div>
-                <div *ngIf="active==='resume'">
-                    res
+                <div *ngIf="active==='Expertise'">
+                    <app-expertise [admin]="true"></app-expertise>
                 </div>
-                <div *ngIf="active==='services'">
-                    ser
+                <div *ngIf="active==='Resume'">
+                    <app-cv-component [admin]="true" [mobileView]="mobileView"></app-cv-component>
                 </div>
             </div>
         </div>

@@ -1,174 +1,561 @@
 <app-header-component *ngIf="!admin" [activeRoute]="activeRoute"></app-header-component>
 
 <section id="mywork">
-    <div class="container py-2">
-        <div *ngIf="admin" class="row">
-            admin
-        </div>
-        <div class="row">
-            <div class="col-sm mt-2">
-                <ngb-carousel class="cursor-pointer" [showNavigationArrows]="false" [showNavigationIndicators]="true" [interval]="1500" [keyboard]="false"
-                    [activeId]="'slideOne'" [pauseOnHover]="false" (mouseenter)="onHover(0)" (mouseleave)="onHoverOut(0)">
-                    <div class="menu front">
-                        <button mat-icon-button [matMenuTriggerFor]="menu">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu" xPosition="before">
-                            <button mat-menu-item>
-                                <mat-icon>dialpad</mat-icon>
-                                <span>Redial</span>
+    <div *ngIf="admin" class="fab-wrapper">
+        <button *ngIf="action=='noaction'" mat-fab color="dark"
+            #tooltip="matTooltip" matTooltip="Add" [matTooltipPosition]="'before'" [matTooltipShowDelay]="1000" 
+            (click)="toggleAction('add')">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <div class="p-2" [ngClass]="admin?'container-fluid':'container'">
+        <div *ngIf="action=='noaction'" class="m-2">
+            <div class="row" *ngFor="let row of myworkList; let row_index=index">
+                <div class="p-1" [ngClass]="admin?'col-lg-6':'col-sm-6'" *ngFor="let col of row; let col_index=index">
+                    <div class="shadow h-100 rounded bg-white">
+                        <div *ngIf="admin" class="menu-wrapper front">
+                            <button  class="btn-menu center-child rounded" mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon>more_vert</mat-icon>
                             </button>
-                            <button mat-menu-item disabled>
-                                <mat-icon>voicemail</mat-icon>
-                                <span>Check voice mail</span>
-                            </button>
-                            <button mat-menu-item>
-                                <mat-icon>notifications_off</mat-icon>
-                                <span>Disable alerts</span>
-                            </button>
-                        </mat-menu>
+                            <mat-menu #menu="matMenu" xPosition="before">
+                                <button mat-menu-item (click)="toggleAction('edit', col)">
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Edit detail</span>
+                                </button>
+                                <button mat-menu-item (click)="toggleAction('update-image', col)">
+                                    <mat-icon>images</mat-icon>
+                                    <span>Update image</span>
+                                </button>
+                                <button mat-menu-item (click)="onDelete(col)">
+                                    <mat-icon>delete_forever</mat-icon>
+                                    <span>Delete</span>
+                                </button>
+                            </mat-menu>
+                        </div>
+                        <ngb-carousel class="cursor-pointer" [showNavigationArrows]="true" [showNavigationIndicators]="true" [interval]="2000" [keyboard]="false"
+                            [activeId]="'slideOne'" [pauseOnHover]="false" (mouseenter)="onHover(col.id)" (mouseleave)="onHoverOut(col.id)">
+                            <ng-template ngbSlide class="back" *ngFor="let image of col.images; let i = index" id="{{i.toString()}}">
+                                <div class="picsum-img-wrapper">
+                                    <img style="width: 100%; height: 200px;" [src]="image.imageSrc" alt="{{image.imageSrc}}"
+                                        onerror="this.src = 'assets/images/img-ph.jpg';" >
+                                </div>
+                                <div class="carousel-caption">
+                                    <h4 class="txt-shadow">{{image.name}}</h4>
+                                    <!-- <small class="txt-shadow">Nulla vitae elit libero, a pharetra augue mollis interdum.</small> -->
+                                </div>
+                            </ng-template>
+                        </ngb-carousel>
+                        <div class="w-100 p-3 position-relative back">
+                            <div>
+                                <h5>{{col.name}}</h5>
+                            </div>
+                            <small class="text-muted">{{col.detail | limit: 300}}</small>
+                        </div>
                     </div>
-                    <ng-template ngbSlide class="back">
-                        <div class="picsum-img-wrapper" id="slideOne">
-                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
-                        </div>
-                        <div class="carousel-caption">
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbSlide class="back">
-                        <div class="picsum-img-wrapper" id="slideTwo">
-                            <img class="p-img" src="assets/images/display-img.png" alt="Random first slide">
-                        </div>
-                        <div class="carousel-caption">
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbSlide class="back">
-                        <div class="picsum-img-wrapper" id="slideThree">
-                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
-                        </div>
-                        <div class="carousel-caption">
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </div>
-                    </ng-template>
-                </ngb-carousel>
-                <div class="w-100 bg-white h-100px">
-
-                </div>
-            </div>
-            <div class="col-sm  mt-2">
-                <ngb-carousel class="cursor-pointer" [showNavigationArrows]="false" [showNavigationIndicators]="true" [interval]="1500" [keyboard]="false"
-                    [activeId]="'slideOne'" [pauseOnHover]="false" (mouseenter)="onHover(1)" (mouseleave)="onHoverOut(1)">
-                    <ng-template ngbSlide>
-                        <div class="picsum-img-wrapper" id="slideOne">
-                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
-                        </div>
-                        <div class="carousel-caption">
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbSlide>
-                        <div class="picsum-img-wrapper" id="slideTwo">
-                            <img class="p-img" src="assets/images/display-img.png" alt="Random first slide">
-                        </div>
-                        <div class="carousel-caption">
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbSlide>
-                        <div class="picsum-img-wrapper" id="slideThree">
-                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
-                        </div>
-                        <div class="carousel-caption">
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </div>
-                    </ng-template>
-                </ngb-carousel>
-                <div class="w-100 bg-white h-100px">
-                
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm  mt-2">
-                <ngb-carousel class="cursor-pointer" [showNavigationArrows]="false" [showNavigationIndicators]="true" [interval]="1500"
-                    [keyboard]="false" [activeId]="'slideOne'" [pauseOnHover]="false" (mouseenter)="onHover(2)" (mouseleave)="onHoverOut(2)">
-                    <ng-template ngbSlide>
-                        <div class="picsum-img-wrapper" id="slideOne">
-                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
-                        </div>
-                        <div class="carousel-caption">
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbSlide>
-                        <div class="picsum-img-wrapper" id="slideTwo">
-                            <img class="p-img" src="assets/images/display-img.png" alt="Random first slide">
-                        </div>
-                        <div class="carousel-caption">
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </div>
-                    </ng-template>
-                    <ng-template ngbSlide>
-                        <div class="picsum-img-wrapper" id="slideThree">
-                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
-                        </div>
-                        <div class="carousel-caption">
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </div>
-                    </ng-template>
-                </ngb-carousel>
-                <div class="w-100 bg-white h-100px">
-        
+        <!-- Add Image -->
+        <div *ngIf="action=='add'" class="container-fluid p-2 shadow">
+            <div class="center-child justify-content-between align-items-center">
+                <div class="center-child pl-3">
+                    <i class="fa fa-add"></i>
+                    <h5 class="m-0 p-2">Add Mywork</h5>
+                </div>
+                <div>
+                    <span class="icon icon-light" #tooltip="matTooltip" matTooltip="Cancel" [matTooltipPosition]="'before'" [matTooltipShowDelay]="1000"
+                    (click)="toggleAction('noaction')">
+                        <i class="fa fa-xmark px-1"></i>
+                    </span>
                 </div>
             </div>
-            <div class="col-sm mt-2">
-                <ngb-carousel class="cursor-pointer" [showNavigationArrows]="false" [showNavigationIndicators]="true" [interval]="1500"
-                    [keyboard]="false" [activeId]="'slideOne'" [pauseOnHover]="false" (mouseenter)="onHover(3)" (mouseleave)="onHoverOut(3)">
-                    <ng-template ngbSlide>
-                        <div class="picsum-img-wrapper" id="slideOne">
-                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
+           <form [formGroup]="myworkFormGroup" class="p-2">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-label>Name</mat-label>
+                                    <input matInput placeholder="Name" formControlName="name" required focused> 
+                                    <mat-error *ngIf="myworkFormGroup.controls['name'].invalid">Name is required</mat-error>
+                                </mat-form-field>
+                            </div>
                         </div>
-                        <div class="carousel-caption">
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-label>Url</mat-label>
+                                    <input matInput placeholder="Url" formControlName="name" required focused>
+                                    <mat-error *ngIf="myworkFormGroup.controls['directUrl'].invalid">Url is required</mat-error>
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </ng-template>
-                    <ng-template ngbSlide>
-                        <div class="picsum-img-wrapper" id="slideTwo">
-                            <img class="p-img" src="assets/images/display-img.png" alt="Random first slide">
+                        <div class="row">
+                            <div class="col" style="font-size: 15px;">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-label>Detail</mat-label>
+                                    <textarea rows="15" matInput formControlName="detail" required></textarea>
+                                    <mat-error *ngIf="myworkFormGroup.controls['detail'].invalid">Detail is required</mat-error>
+                                </mat-form-field>
+                            </div>
                         </div>
-                        <div class="carousel-caption">
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="row pl-3 mt-2">
+                            <div class="col">
+                                <h5 class="row">Images<span class="text-danger">*</span></h5>
+                                <small class="row text-danger">{{invalidFileText}}</small>
+                            </div>
                         </div>
-                    </ng-template>
-                    <ng-template ngbSlide>
-                        <div class="picsum-img-wrapper" id="slideThree">
-                            <img class="p-img" src="assets/images/bg-2.jpg" alt="Random first slide">
+                        <input #fileInput type="file" multiple (change)="onSelectFiles($event)" style="display: none;" accept="image/*" />
+                        <div class="row">
+                            <div class="col-4 p-1">
+                                <div *ngIf="files.length >= 1" class="border border-success p-1 rounded" style="background-color: rgba(0, 255, 0, 0.1);">
+                                    <span class="icon-sm icon-danger front remove-icon" 
+                                         #tooltip="matTooltip" matTooltip="remove" [matTooltipShowDelay]="1000"
+                                        (click)="files.splice(0, 1)">
+                                        <i class="fa fa-xmark"></i>
+                                    </span>
+                                    <div style="font-size: 12px;">
+                                        <img class="back" style="height: 125px; width: 100%;" [src]="files[0].src" alt="">
+                                        <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                            <mat-label>Label</mat-label>
+                                            <input matInput placeholder="add label">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <button type="button" *ngIf="files.length == 0"class="add-wrapper center-child rounded border text-secondary" matRipple
+                                    (click)="fileInput.click()">
+                                    <div>
+                                        <div>
+                                            <i class="fa fa-add fa-2x"></i>
+                                        </div>
+                                        <small>Select File</small>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="col-4 p-1">
+                                <div *ngIf="files.length >= 2" class="border border-success p-1 rounded" style="background-color: rgba(0, 255, 0, 0.1);">
+                                    <span class="icon-sm icon-danger front remove-icon" 
+                                        #tooltip="matTooltip" matTooltip="remove" [matTooltipShowDelay]="1000"
+                                        (click)="files.splice(1, 1)">
+                                        <i class="fa fa-xmark"></i>
+                                    </span>
+                                    <div style="font-size: 12px;">
+                                        <img class="back" style="height: 125px; width: 100%;" [src]="files[1].src" alt="">
+                                        <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                            <mat-label>Label</mat-label>
+                                            <input matInput placeholder="add label">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <button type="button" *ngIf="files.length == 1" class="add-wrapper center-child rounded border text-secondary" matRipple
+                                    (click)="fileInput.click()">
+                                    <div>
+                                        <div>
+                                            <i class="fa fa-add fa-2x"></i>
+                                        </div>
+                                        <small>Select File</small>
+                                    </div>
+                                </button>
+                                <div *ngIf="files.length < 1" class="center-child rounded border text-secondary w-100 no-image">
+                                    <i class="fa fa-image fa-2x"></i>
+                                </div>
+                            </div>
+                            <div class="col-4 p-1">
+                                <div *ngIf="files.length >= 3" class="border border-success p-1 rounded" style="background-color: rgba(0, 255, 0, 0.1);">
+                                    <span class="icon-sm icon-danger front remove-icon"
+                                        #tooltip="matTooltip" matTooltip="remove" [matTooltipShowDelay]="1000"
+                                        (click)="files.splice(2, 1)">
+                                        <i class="fa fa-xmark"></i>
+                                    </span>
+                                    <div style="font-size: 12px;">
+                                        <img class="back" style="height: 125px; width: 100%;" [src]="files[2].src" alt="">
+                                        <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                            <mat-label>Label</mat-label>
+                                            <input matInput placeholder="add label">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <button type="button" *ngIf="files.length == 2" class="add-wrapper center-child rounded border text-secondary" matRipple
+                                    (click)="fileInput.click()">
+                                    <div>
+                                        <div>
+                                            <i class="fa fa-add fa-2x"></i>
+                                        </div>
+                                        <small>Select File</small>
+                                    </div>
+                                </button>
+                                <div *ngIf="files.length < 2" class="center-child rounded border text-secondary w-100 no-image">
+                                    <i class="fa fa-image fa-2x"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="carousel-caption">
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        <div class="row">
+                            <div class="col-4 p-1">
+                                <div *ngIf="files.length >= 4" class="border border-success p-1 rounded" style="background-color: rgba(0, 255, 0, 0.1);">
+                                    <span class="icon-sm icon-danger front remove-icon"
+                                        #tooltip="matTooltip" matTooltip="remove" [matTooltipShowDelay]="1000"
+                                        (click)="files.splice(3, 1)">
+                                        <i class="fa fa-xmark"></i>
+                                    </span>
+                                    <div style="font-size: 12px;">
+                                        <img class="back" style="height: 125px; width: 100%;" [src]="files[3].src" alt="">
+                                        <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                            <mat-label>Label</mat-label>
+                                            <input matInput placeholder="add label">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <button type="button" *ngIf="files.length == 3" class="add-wrapper center-child rounded border text-secondary" matRipple
+                                    (click)="fileInput.click()">
+                                    <div>
+                                        <div>
+                                            <i class="fa fa-add fa-2x"></i>
+                                        </div>
+                                        <small>Select File</small>
+                                    </div>
+                                </button>
+                                <div *ngIf="files.length < 3" class="center-child rounded border text-secondary w-100 no-image">
+                                    <i class="fa fa-image fa-2x"></i>
+                                </div>
+                            </div>
+                            <div class="col-4 p-1">
+                                <div *ngIf="files.length >= 5" class="border border-success p-1 rounded" style="background-color: rgba(0, 255, 0, 0.1);">
+                                    <span class="icon-sm icon-danger front remove-icon"
+                                        #tooltip="matTooltip" matTooltip="remove" [matTooltipShowDelay]="1000"
+                                        (click)="files.splice(4, 1)">
+                                        <i class="fa fa-xmark"></i>
+                                    </span>
+                                    <div style="font-size: 12px;">
+                                        <img class="back" style="height: 125px; width: 100%;" [src]="files[4].src" alt="">
+                                        <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                            <mat-label>Label</mat-label>
+                                            <input matInput placeholder="add label">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <button type="button" *ngIf="files.length == 4" class="add-wrapper center-child rounded border text-secondary" matRipple
+                                    (click)="fileInput.click()">
+                                    <div>
+                                        <div>
+                                            <i class="fa fa-add fa-2x"></i>
+                                        </div>
+                                        <small>Select File</small>
+                                    </div>
+                                </button>
+                                <div *ngIf="files.length < 4" class="center-child rounded border text-secondary w-100 no-image">
+                                    <i class="fa fa-image fa-2x"></i>
+                                </div>
+                            </div>
+                            <div class="col-4 p-1">
+                                <div *ngIf="files.length == 6" class="border border-success p-1 rounded" style="background-color: rgba(0, 255, 0, 0.1);">
+                                    <span class="icon-sm icon-danger front remove-icon"
+                                        #tooltip="matTooltip" matTooltip="remove" [matTooltipShowDelay]="1000"
+                                        (click)="files.splice(5, 1)">
+                                        <i class="fa fa-xmark"></i>
+                                    </span>
+                                    <div style="font-size: 12px;">
+                                        <img class="back" style="height: 125px; width: 100%;" [src]="files[5].src" alt="">
+                                        <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                            <mat-label>Label</mat-label>
+                                            <input matInput placeholder="add label">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <button type="button" *ngIf="files.length == 5" class="add-wrapper center-child rounded border text-secondary" matRipple
+                                    (click)="fileInput.click()">
+                                    <div>
+                                        <div>
+                                            <i class="fa fa-add fa-2x"></i>
+                                        </div>
+                                        <small>Select File</small>
+                                    </div>
+                                </button>
+                                <div *ngIf="files.length < 5" class="center-child rounded border text-secondary w-100 no-image">
+                                    <i class="fa fa-image fa-2x"></i>
+                                </div>
+                            </div>
                         </div>
-                    </ng-template>
-                </ngb-carousel>
-                <div class="w-100 bg-white h-100px">
-        
+                    </div>
                 </div>
+                <div class="d-flex justify-content-end w-100 mt-2">
+                    <button type="button" class="btn mx-1"
+                        [ngClass]="myworkFormGroup.invalid || files.length == 0?'btn-secondary disabled':'btn-dark'"
+                        [disabled]="myworkFormGroup.invalid || files.length == 0">
+                        <i class="fa fa-save mr-1"></i> Save
+                    </button>
+                </div>
+           </form>
+        </div>
+        <!-- Edit Mywork -->
+        <div *ngIf="action=='edit'" class="container-fluid p-2 shadow">
+            <div class="center-child justify-content-between align-items-center">
+                <div class="center-child pl-3">
+                    <i class="fa fa-pen"></i>
+                    <h5 class="m-0 p-2">Edit Mywork Detail</h5>
+                </div>
+                <div>
+                    <span class="icon icon-light" #tooltip="matTooltip" matTooltip="Cancel" [matTooltipPosition]="'before'"
+                        [matTooltipShowDelay]="1000" (click)="toggleAction('noaction')">
+                        <i class="fa fa-xmark px-1"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="center-child">
+                <form [formGroup]="myworkFormGroup" class="p-2" [ngStyle]="{'width' : mobileView ? '90%':'60%'}">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Name</mat-label>
+                                <input matInput placeholder="Name" formControlName="name" required autofocus>
+                                <mat-error *ngIf="myworkFormGroup.controls['name'].invalid">Name is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Url</mat-label>
+                                <input matInput placeholder="Url" formControlName="directUrl" required>
+                                <mat-error *ngIf="myworkFormGroup.controls['directUrl'].invalid">Url is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="font-size: 15px;">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Detail</mat-label>
+                                <textarea rows="15" matInput formControlName="detail" required></textarea>
+                                <mat-error *ngIf="myworkFormGroup.controls['detail'].invalid">Detail is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end w-100 mt-2">
+                        <button type="button" class="btn mx-1"
+                            [ngClass]="myworkFormGroup.invalid?'btn-secondary disabled':'btn-dark'"
+                            [disabled]="myworkFormGroup.invalid">
+                            <i class="fa fa-save mr-1"></i> Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Update Images-->
+        <div *ngIf="action=='update-image'" class="container-fluid p-2 shadow">
+            <div class="center-child justify-content-between align-items-center">
+                <div class="center-child pl-3">
+                    <i class="fa fa-images"></i>
+                    <h5 class="m-0 p-2">Update Image</h5>
+                </div>
+                <div>
+                    <span class="icon icon-light" #tooltip="matTooltip" matTooltip="Cancel" [matTooltipPosition]="'before'"
+                        [matTooltipShowDelay]="1000" (click)="toggleAction('noaction')">
+                        <i class="fa fa-xmark px-1"></i>
+                    </span>
+                </div>
+            </div>
+            <small class="row text-danger ml-2">{{invalidFileText}}</small>
+            <div class="center-child">
+                <div class="row" [ngStyle]="{'width' : mobileView ? '100%':'75%'}">
+                    <div class="col-4 p-1">
+                        <input #fileInput0 type="file" (change)="onChangeMyworkImage($event, 0)" style="display: none;" accept="image/*">
+                        <div *ngIf="selectedMywork.images.length >= 1" class="border p-1 rounded">
+                            <span class="icon-sm icon-danger front remove-icon" #tooltip="matTooltip" matTooltip="remove"
+                                [matTooltipShowDelay]="1000" (click)="selectedMywork.images.splice(0, 1)">
+                                <i class="fa fa-xmark"></i>
+                            </span>
+                            <div style="font-size: 12px;">
+                                <img class="back cursor-pointer" style="height: 125px; width: 100%;" [src]="selectedMywork.images[0].imageSrc" alt=""
+                                    onerror="this.src = 'assets/images/img-ph.jpg';"
+                                    #tooltip="matTooltip" matTooltip="select file"
+                                    (click)="fileInput0.click()">
+                                <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                    <mat-label>Label</mat-label>
+                                    <input matInput placeholder="add label" [value]="selectedMywork.images[0].name" (change)="onChangeSelectedMyworkLable($event, 0)">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <button type="button" *ngIf="selectedMywork.images.length == 0" class="add-wrapper center-child rounded border text-secondary"
+                            matRipple (click)="fileInput0.click()">
+                            <div>
+                                <div>
+                                    <i class="fa fa-add fa-2x"></i>
+                                </div>
+                                <small>Select File</small>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="col-4 p-1">
+                        <input #fileInput1 type="file" (change)="onChangeMyworkImage($event, 1)" style="display: none;" accept="image/*">
+                        <div *ngIf="selectedMywork.images.length >= 2" class="border p-1 rounded">
+                            <span class="icon-sm icon-danger front remove-icon" #tooltip="matTooltip" matTooltip="remove"
+                                [matTooltipShowDelay]="1000" (click)="selectedMywork.images.splice(1, 1)">
+                                <i class="fa fa-xmark"></i>
+                            </span>
+                            <div style="font-size: 12px;">
+                                <img class="back cursor-pointer" style="height: 125px; width: 100%;" [src]="selectedMywork.images[1].imageSrc" alt=""
+                                    onerror="this.src = 'assets/images/img-ph.jpg';"
+                                    #tooltip="matTooltip" matTooltip="select file"
+                                    (click)="fileInput1.click()">
+                                <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                    <mat-label>Label</mat-label>
+                                    <input matInput placeholder="add label" [value]="selectedMywork.images[1].name" (change)="onChangeSelectedMyworkLable($event, 1)">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <button type="button" *ngIf="selectedMywork.images.length == 1"
+                            class="add-wrapper center-child rounded border text-secondary" matRipple (click)="fileInput1.click()">
+                            <div>
+                                <div>
+                                    <i class="fa fa-add fa-2x"></i>
+                                </div>
+                                <small>Select File</small>
+                            </div>
+                        </button>
+                        <div *ngIf="selectedMywork.images.length < 1" class="center-child rounded border text-secondary w-100 no-image">
+                            <i class="fa fa-image fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="col-4 p-1">
+                        <input #fileInput2 type="file" (change)="onChangeMyworkImage($event, 2)" style="display: none;" accept="image/*">
+                        <div *ngIf="selectedMywork.images.length >= 3" class="border p-1 rounded">
+                            <span class="icon-sm icon-danger front remove-icon" #tooltip="matTooltip" matTooltip="remove"
+                                [matTooltipShowDelay]="1000" (click)="selectedMywork.images.splice(2, 1)">
+                                <i class="fa fa-xmark"></i>
+                            </span>
+                            <div style="font-size: 12px;">
+                                <img class="back cursor-pointer" style="height: 125px; width: 100%;" [src]="selectedMywork.images[2].imageSrc" alt=""
+                                    onerror="this.src = 'assets/images/img-ph.jpg';"
+                                    #tooltip="matTooltip" matTooltip="select file"
+                                    (click)="fileInput2.click()">
+                                <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                    <mat-label>Label</mat-label>
+                                    <input matInput placeholder="add label" [value]="selectedMywork.images[2].name" (change)="onChangeSelectedMyworkLable($event, 2)">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <button type="button" *ngIf="selectedMywork.images.length == 2"
+                            class="add-wrapper center-child rounded border text-secondary" matRipple (click)="fileInput2.click()">
+                            <div>
+                                <div>
+                                    <i class="fa fa-add fa-2x"></i>
+                                </div>
+                                <small>Select File</small>
+                            </div>
+                        </button>
+                        <div *ngIf="selectedMywork.images.length < 2" class="center-child rounded border text-secondary w-100 no-image">
+                            <i class="fa fa-image fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+           </div>
+            <div class="center-child">
+                <div class="row" [ngStyle]="{'width' : mobileView ? '100%':'75%'}">
+                    <div class="col-4 p-1">
+                        <input #fileInput3 type="file" (change)="onChangeMyworkImage($event, 3)" style="display: none;" accept="image/*">
+                        <div *ngIf="selectedMywork.images.length >= 4" class="border p-1 rounded">
+                            <span class="icon-sm icon-danger front remove-icon" #tooltip="matTooltip" matTooltip="remove"
+                                [matTooltipShowDelay]="1000" (click)="selectedMywork.images.splice(3, 1)">
+                                <i class="fa fa-xmark"></i>
+                            </span>
+                            <div style="font-size: 12px;">
+                                <img class="back cursor-pointer" style="height: 125px; width: 100%;" [src]="selectedMywork.images[3].imageSrc" alt=""
+                                    onerror="this.src = 'assets/images/img-ph.jpg';"
+                                    #tooltip="matTooltip" matTooltip="select file"
+                                    (click)="fileInput3.click()">
+                                <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                    <mat-label>Label</mat-label>
+                                    <input matInput placeholder="add label" [value]="selectedMywork.images[3].name" (change)="onChangeSelectedMyworkLable($event, 3)">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <button type="button" *ngIf="selectedMywork.images.length == 3"
+                            class="add-wrapper center-child rounded border text-secondary" matRipple (click)="fileInput3.click()">
+                            <div>
+                                <div>
+                                    <i class="fa fa-add fa-2x"></i>
+                                </div>
+                                <small>Select File</small>
+                            </div>
+                        </button>
+                        <div *ngIf="selectedMywork.images.length < 3" class="center-child rounded border text-secondary w-100 no-image">
+                            <i class="fa fa-image fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="col-4 p-1">
+                        <input #fileInput4 type="file" (change)="onChangeMyworkImage($event, 4)" style="display: none;" accept="image/*">
+                        <div *ngIf="selectedMywork.images.length >= 5" class="border p-1 rounded">
+                            <span class="icon-sm icon-danger front remove-icon" #tooltip="matTooltip" matTooltip="remove"
+                                [matTooltipShowDelay]="1000" (click)="selectedMywork.images.splice(4, 1)">
+                                <i class="fa fa-xmark"></i>
+                            </span>
+                            <div style="font-size: 12px;">
+                                <img class="back cursor-pointer" style="height: 125px; width: 100%;" [src]="selectedMywork.images[4].imageSrc" alt=""
+                                    onerror="this.src = 'assets/images/img-ph.jpg';"
+                                    #tooltip="matTooltip" matTooltip="select file"
+                                    (click)="fileInput4.click()">
+                                <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                    <mat-label>Label</mat-label>
+                                    <input matInput placeholder="add label" [value]="selectedMywork.images[4].name" (change)="onChangeSelectedMyworkLable($event, 4)">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <button type="button" *ngIf="selectedMywork.images.length == 4"
+                            class="add-wrapper center-child rounded border text-secondary" matRipple (click)="fileInput4.click()">
+                            <div>
+                                <div>
+                                    <i class="fa fa-add fa-2x"></i>
+                                </div>
+                                <small>Select File</small>
+                            </div>
+                        </button>
+                        <div *ngIf="selectedMywork.images.length < 4" class="center-child rounded border text-secondary w-100 no-image">
+                            <i class="fa fa-image fa-2x"></i>
+                        </div>
+                    </div>
+                    <div class="col-4 p-1">
+                        <input #fileInput5 type="file" (change)="onChangeMyworkImage($event, 5)" style="display: none;" accept="image/*">
+                        <div *ngIf="selectedMywork.images.length == 6" class="border p-1 rounded">
+                            <span class="icon-sm icon-danger front remove-icon" #tooltip="matTooltip" matTooltip="remove"
+                                [matTooltipShowDelay]="1000" (click)="selectedMywork.images.splice(5, 1)">
+                                <i class="fa fa-xmark"></i>
+                            </span>
+                            <div style="font-size: 12px;">
+                                <img class="back cursor-pointer" style="height: 125px; width: 100%;" [src]="selectedMywork.images[5].imageSrc" alt=""
+                                    onerror="this.src = 'assets/images/img-ph.jpg';"
+                                    #tooltip="matTooltip" matTooltip="select file"
+                                    (click)="fileInput5.click()">
+                                <mat-form-field appearance="standard" class="w-100 pt-1 px-2">
+                                    <mat-label>Label</mat-label>
+                                    <input matInput placeholder="add label" [value]="selectedMywork.images[5].name" (change)="onChangeSelectedMyworkLable($event, 5)">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <button type="button" *ngIf="selectedMywork.images.length == 5"
+                            class="add-wrapper center-child rounded border text-secondary" matRipple (click)="fileInput5.click()">
+                            <div>
+                                <div>
+                                    <i class="fa fa-add fa-2x"></i>
+                                </div>
+                                <small>Select File</small>
+                            </div>
+                        </button>
+                        <div *ngIf="selectedMywork.images.length < 5" class="center-child rounded border text-secondary w-100 no-image">
+                            <i class="fa fa-image fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end w-100 mt-2">
+                <button type="button" class="btn mx-1" 
+                    [ngClass]="selectedMywork.images.length==0 || !myworkChange?'btn-secondary disabled':'btn-dark'"
+                    [disabled]="selectedMywork.images.length==0 || !myworkChange">
+                    <i class="fa fa-save mr-1"></i> Save
+                </button>
             </div>
         </div>
     </div>
 </section>
 
-<app-footer-component></app-footer-component>
+<app-footer-component *ngIf="!admin"></app-footer-component>
